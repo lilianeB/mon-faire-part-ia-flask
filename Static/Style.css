@@ -1,0 +1,378 @@
+/* Palettes de couleurs inspirées du PDF "MFPAC - IDENTITE VISUELLE.pdf" */
+:root {
+    --color-text: #702B24;    /* Texte */
+    --color-primary: #9B432B; /* Primaire */
+    --color-accent: #C26E4C;  /* Accent */
+    --color-background: #F6E3DF; /* Fond */
+    --color-complementary-1: #DA7D5E; /* Complémentaire 1 */
+    --color-complementary-2: #B34F2F; /* Complémentaire 2 */
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 10px; /* Augmenter le padding général du body */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px; /* Augmenter la marge sous le header */
+    padding-top: 15px; /* Augmenter le padding en haut */
+}
+
+.header-logo {
+    max-height: 2.5em; /* Augmenter la taille maximale du logo */
+    height: auto;
+    width: auto;
+    display: block;
+    margin: 0 auto 10px auto; /* Augmenter la marge sous le logo */
+}
+
+header h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2em; /* Augmenter la taille du titre principal */
+    color: var(--color-primary);
+    margin-bottom: 10px; /* Augmenter la marge inférieure du titre */
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Augmenter le padding interne du container */
+    max-width: 700px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Augmenter la marge sous le container */
+}
+
+.step {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.section-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.8em; /* Augmenter le titre de section */
+    color: var(--color-accent);
+    text-align: center;
+    margin-bottom: 25px; /* Augmenter la marge inférieure */
+}
+
+/* Spécifiquement pour la page d'introduction */
+#introStep p {
+    font-size: 1.1em; /* Augmenter le texte sur la page d'intro */
+    margin-bottom: 20px; /* Ajuster la marge sous les paragraphes d'intro */
+}
+
+.step p {
+    font-size: 1em; /* Taille de texte générale pour les paragraphes */
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Augmenter la marge entre les groupes de formulaire */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Augmenter la marge sous les labels */
+    font-weight: 700;
+    color: var(--color-text);
+    font-size: 1.05em; /* Augmenter la taille des labels */
+}
+
+.text-input,
+textarea {
+    width: calc(100% - 24px); /* Ajuster la largeur pour plus de padding */
+    padding: 12px; /* Augmenter le padding des inputs/textarea */
+    border: 1px solid var(--color-complementary-1);
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1em; /* Augmenter la taille de la police */
+    color: var(--color-text);
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.text-input:focus,
+textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 5px rgba(194, 110, 76, 0.5);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px; /* Augmenter la hauteur min */
+}
+
+.button-primary,
+.button-secondary {
+    display: block;
+    width: 100%;
+    padding: 15px 25px; /* Augmenter le padding des boutons */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em; /* Augmenter la taille de la police des boutons */
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 20px; /* Augmenter la marge au-dessus des boutons */
+    font-family: 'Quicksand', sans-serif;
+}
+
+.button-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.button-primary:hover {
+    background-color: var(--color-complementary-2);
+    transform: translateY(-2px);
+}
+
+.button-secondary {
+    background-color: var(--color-text);
+    color: #ffffff;
+}
+
+.button-secondary:hover {
+    background-color: #5a221d;
+    transform: translateY(-2px);
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Augmenter le gap entre les radios */
+    margin-bottom: 20px; /* Augmenter la marge */
+    flex-wrap: wrap;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    background-color: #f0f0f0;
+    color: var(--color-text);
+    padding: 12px 25px; /* Augmenter le padding des labels radio */
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    border: 2px solid transparent;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1em; /* Augmenter la taille de police */
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-accent);
+}
+
+.style-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Augmenter le gap */
+    justify-content: center;
+    margin-bottom: 20px; /* Augmenter la marge */
+}
+
+.style-button {
+    background-color: #f0f0f0;
+    color: var(--color-text);
+    border: 2px solid transparent;
+    padding: 10px 15px; /* Augmenter le padding des boutons de style */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95em; /* Augmenter la taille de police */
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.style-button:hover {
+    border-color: var(--color-complementary-1);
+}
+
+.style-button.selected {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.generated-output-box {
+    background-color: var(--color-background);
+    border: 1px dashed var(--color-accent);
+    border-radius: 10px;
+    padding: 20px; /* Augmenter le padding */
+    min-height: 150px; /* Augmenter la hauteur min */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    text-align: justify;
+}
+
+.generated-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.05em; /* Augmenter la taille de la police */
+    color: var(--color-text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.step p {
+    text-align: justify;
+}
+
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-primary);
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.feedback-section {
+    margin-top: 30px; /* Augmenter la marge */
+    padding-top: 20px; /* Augmenter le padding */
+    border-top: 1px dashed var(--color-complementary-1);
+    text-align: center;
+}
+
+.feedback-section h3 {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--color-accent);
+    font-size: 1.6em; /* Augmenter la taille de police */
+    margin-bottom: 10px;
+}
+
+.feedback-section p {
+    font-size: 0.95em; /* Augmenter la taille de police */
+    color: var(--color-text);
+    margin-bottom: 15px;
+    font-family: 'Quicksand', sans-serif;
+    text-align: justify;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media Queries pour la réactivité (ajustées pour plus de lisibilité sur mobile) */
+@media (max-width: 600px) {
+    body {
+        padding: 5px; /* Un peu de padding sur les très petits écrans */
+    }
+
+    header {
+        margin-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .header-logo {
+        max-height: 1.5em; /* Logo plus visible sur mobile */
+        margin-bottom: 5px;
+    }
+
+    header h1 {
+        font-size: 1.5em; /* Titre principal plus grand sur mobile */
+        margin-bottom: 5px;
+    }
+
+    .container {
+        padding: 15px; /* Plus de padding interne sur les très petits écrans */
+        margin-bottom: 15px;
+    }
+    
+    .section-title {
+        font-size: 1.3em; /* Titres de section plus grands */
+        margin-bottom: 15px;
+    }
+
+    #introStep p {
+        font-size: 0.95em; /* Texte d'intro plus grand sur mobile */
+        margin-bottom: 10px;
+    }
+
+    .step p {
+        font-size: 0.9em; /* Texte des paragraphes généraux plus grand sur mobile */
+    }
+
+    .form-group label {
+        font-size: 0.95em; /* Labels plus grands */
+        margin-bottom: 5px;
+    }
+
+    .text-input,
+    textarea {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    textarea {
+        min-height: 70px;
+    }
+
+    .button-primary,
+    .button-secondary {
+        padding: 12px 15px;
+        font-size: 0.9em;
+        margin-top: 15px;
+    }
+
+    .radio-group, .style-options {
+        gap: 10px; /* Petit gap, mais pas trop tassé */
+    }
+
+    .radio-group label, .style-button {
+        width: calc(100% - 20px); /* Ajuster la largeur des boutons radio/style pour qu'ils ne soient pas trop serrés */
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .generated-output-box {
+        padding: 15px;
+        min-height: 120px;
+    }
+
+    .generated-text {
+        font-size: 1em;
+    }
+
+    .feedback-section h3 {
+        font-size: 1.3em;
+    }
+
+    .feedback-section p {
+        font-size: 0.9em;
+    }
+}
