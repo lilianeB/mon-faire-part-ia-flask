@@ -3,657 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MON TEXTE DE MARIAGE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Quicksand', sans-serif; /* Updated font family */
-            background-color: #F6E3DF; /* Confirmed background color */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align to top for better scrolling on smaller screens */
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 1.5rem; /* More rounded corners */
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            padding: 2.5rem; /* Increased padding */
-            max-width: 800px; /* Wider container */
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem; /* Increased gap between sections */
-            position: relative; /* For loading spinner positioning */
-        }
-        input[type="text"], input[type="date"], input[type="time"], textarea, select {
-            width: 100%;
-            padding: 0.5rem 0.5rem; /* Generous padding */
-            border: 1px solid #9B432B; /* Updated border color */
-            border-radius: 0.75rem; /* Rounded input fields */
-            font-size: 1rem;
-            color: #9B432B; /* Updated text color */
-            box-sizing: border-box;
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            text-align: center;
-        }
-        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #9B432B; /* Updated focus ring color */
-            box-shadow: 0 0 0 3px rgba(155, 67, 43, 0.2); /* Soft shadow on focus */
-        }
-        button {
-            padding: 1.25rem 2rem; /* Increased horizontal padding (2rem = 32px) */
-            border-radius: 0.5rem; /* Slightly rounded corners */
-            font-weight: bold; /* Text is now bold */
-            text-transform: uppercase; /* Ensure text is uppercase */
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, color 0.2s ease-in-out; /* Added color transition */
-            display: inline-flex; /* Use inline-flex for centering within flex parents */
-            align-items: center; /* Center text vertically */
-            justify-content: center; /* Center text horizontally within the button */
-            min-width: 200px; /* Set a minimum width for the button */
-            white-space: nowrap; /* Prevent text wrapping */
-        }
-        button.primary {
-            background-color: #9B432B; /* Updated primary button color */
-            color: white; /* Text color remains white for primary button */
-        }
-        button.primary:hover {
-            background-color: #7a3621; /* Darker shade on hover */
-            transform: translateY(-1px); /* Slight lift effect */
-        }
-        button.secondary {
-            background-color: #F6E3DF; /* Updated secondary button color (unfilled progress bar color) */
-            color: #9B432B; /* Updated text color for secondary button */
-            border: 1px solid #9B432B; /* Updated border color for secondary button */
-        }
-        button.secondary:hover {
-            background-color: #C26E4C; /* Specific hover color for secondary buttons */
-            color: white; /* Text color white on hover for secondary buttons */
-            transform: translateY(-1px);
-        }
-        /* Specific style for download and modify buttons */
-        .button-end-action {
-            background-color: #9B432B; /* Target color for these specific buttons */
-            color: white;
-            border: 1px solid #9B432B;
-        }
-        .button-end-action:hover {
-            background-color: #F6E3DF; /* Specific hover color for end action buttons */
-            color: white; /* Text color *remains* white on hover for end action buttons as per user's latest clarification */
-            transform: translateY(-1px);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .message-box {
-            background-color: #fcebeb; /* Light red for error */
-            color: #9B432B; /* Dark red text */
-            padding: 1rem;
-            border-radius: 0.75rem;
-            border: 1px solid #9B432B;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: none; /* Hidden by default */
-        }
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 1rem;
-            border-radius: 1.5rem;
-            z-index: 10;
-        }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #9B432B; /* Spinner color updated */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .text-custom-color {
-            color: #9B432B; /* Custom color for general text */
-        }
-        .logo-container {
-            display: flex;
-            justify-content: center; /* Ensures content is centered */
-            margin-bottom: 1rem;
-        }
-        .logo {
-            width: 150px; /* Fixed width for the logo */
-            height: auto; /* Maintain aspect ratio */
-            display: block; /* Ensures margin auto works for centering */
-            margin: 0 auto; /* Centers the image horizontally within the flex container */
-        }
-        .generated-text-area {
-            text-align: justify; /* Justify the generated text */
-        }
-        /* Progress Bar Styling */
-        .progress-container {
-            width: 100%;
-            background-color: #F6E3DF; /* Updated to match the background of the body/intro */
-            border-radius: 0.5rem;
-            height: 12px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #9B432B;
-            border-radius: 0.5rem;
-            transition: width 0.5s ease-in-out;
-        }
-        .progress-text {
-            text-align: center;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: #9B432B;
-        }
-        /* Flex utility for centering items */
-        .flex-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        @media (max-width: 640px) {
-            .container {
-                padding: 1.5rem;
-            }
-            button {
-                min-width: 180px; /* Adjusted fixed width for smaller screens */
-                padding: 1rem 1.5rem; /* Adjusted padding for smaller screens */
-            }
-        }
-    </style>
+    <title>MON TEXTE DE FAIRE-PART/title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div id="app" class="container">
-        <div class="logo-container">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="LOGO HD" class="logo" id="logo-image">
-        </div>
-        <h1 class="text-3xl font-bold text-center text-custom-color mb-6">MON TEXTE DE MARIAGE</h1>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='LOGO HD.png') }}" alt="Logo Mon Faire-Part Africain Chic" class="header-logo">
+        <h1>MON TEXTE DE FAIRE-PART</h1>
+    </header>
 
-        <div id="intro-section" class="text-center text-custom-color mb-6 p-4 rounded-lg" style="background-color: #F6E3DF;">
-            <p>Hello🪘,</p><br>
-            <p>je suis Liliane, la plume qui t'aidera à rédiger un texte pour annoncer ton mariage avec élégance.</p><br>
-            <p>Afin de t'aider, j'ai besoin que tu répondes à ces quelques questions.</p><br>
-            <p>⌛Cela te prendra moins de 5 minutes.</p><br>
-            <div class="flex-center"> <button id="start-button" class="primary">COMMENCER</button>
+    <main class="container">
+        <div id="progressBarContainer" class="progress-bar-container hidden">
+            <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+
+        <section id="introStep" class="step">
+            <h2 class="section-title">Bienvenue sur votre générateur de texte!</h2>
+            <p>Afin de bien préparer le texte de votre faire-part, j'ai d'abord besoin d'avoir quelques informations. Commençons !</p>
+            <button id="startButton" class="button-primary">COMMENCER</button>
+        </section>
+
+        <section id="namesStep" class="step hidden">
+            <h2 class="section-title">Quels sont les prénoms des futurs mariés?</h2>
+            <div class="form-group">
+                <label for="brideName">Prénom de la mariée :</label>
+                <input type="text" id="brideName" class="text-input" placeholder="Ex: Aissatou" required>
             </div>
-        </div>
-
-        <div id="messageBox" class="message-box"></div>
-
-        <div id="progress-section" class="mb-6 hidden">
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+            <div class="form-group">
+                <label for="groomName">Prénom du marié :</label>
+                <input type="text" id="groomName" class="text-input" placeholder="Ex: Moussa" required>
             </div>
-            <div class="progress-text" id="progress-text">0%</div>
-        </div>
+            <button id="namesNext" class="button-primary">Suivant</button>
+        </section>
 
-
-        <div id="question-section" class="space-y-6 hidden">
-            <div class="text-xl font-semibold text-custom-color text-center" id="question-display"></div>
-            <div id="input-container"></div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center"> <button class="secondary" id="prev-button" style="display: none;">PRÉCÉDENT</button>
-                <button class="primary" id="next-button">SUIVANT</button>
-                <button class="primary" id="generate-button" style="display: none;">GÉNÉRER LE TEXTE</button>
+        <section id="familyNamesOptionStep" class="step hidden">
+            <h2 class="section-title">Souhaitez-vous inclure les noms des familles?</h2>
+            <div class="radio-group">
+                <input type="radio" id="familyNamesYes" name="familyNamesOption" value="yes">
+                <label for="familyNamesYes">Oui</label>
+                <input type="radio" id="familyNamesNo" name="familyNamesOption" value="no">
+                <label for="familyNamesNo">Non</label>
             </div>
-        </div>
+            <button id="familyNamesOptionNext" class="button-primary">Suivant</button>
+        </section>
 
-        <div class="space-y-6 hidden" id="result-section">
-            <h2 class="text-2xl font-bold text-custom-color">Votre texte de mariage :</h2>
-            <textarea class="w-full h-64 border rounded-lg p-4 resize-y bg-gray-50 text-custom-color generated-text-area" id="generated-text" readonly></textarea>
-            <div class="flex flex-col gap-4 justify-center">
-                <button class="primary button-end-action" id="download-button">JE VEUX TÉLÉCHARGER LE TEXTE</button>
-                <button class="primary button-end-action" id="modify-button">JE VEUX MODIFIER</button>
+        <section id="brideFamilyStep" class="step hidden">
+            <h2 class="section-title">Noms des familles de la mariée :</h2>
+            <p>Veuillez lister les noms des familles (Ex: Traoré, Diallo, Konaté)</p>
+            <div class="form-group">
+                <input type="text" id="brideFamilyNames" class="text-input" placeholder="Ex: Les grandes familles Traoré, Diallo">
             </div>
+            <button id="brideFamilyNext" class="button-primary">Suivant</button>
+        </section>
 
-            <div class="space-y-4 hidden" id="modification-section">
-                <label class="block text-custom-color font-medium" for="modification-input">Quelles modifications souhaitez-vous apporter ?</label>
-                <textarea class="w-full h-32 border rounded-lg p-4 resize-y text-custom-color" id="modification-input" placeholder="Ex: 'Rendez le ton plus festif', 'Ajoutez une citation', 'Simplifiez la partie réception'"></textarea>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center"> <button class="primary" id="submit-modification-button">MODIFIER</button>
-                    <button class="secondary" id="cancel-modification-button">ANNULER</button>
-                </div>
+        <section id="groomFamilyStep" class="step hidden">
+            <h2 class="section-title">Noms des familles du marié :</h2>
+            <p>Veuillez lister les noms des familles (Ex: Coulibaly, Diarra, Keita)</p>
+            <div class="form-group">
+                <input type="text" id="groomFamilyNames" class="text-input" placeholder="Ex: Les grandes familles Coulibaly, Diarra">
             </div>
-        </div>
+            <button id="groomFamilyNext" class="button-primary">Suivant</button>
+        </section>
 
-        <div class="loading-overlay hidden" id="loading-overlay">
-            <div class="spinner"></div>
-            <p class="text-lg text-custom-color font-semibold">Génération de votre texte...</p>
-        </div>
-    </div>
+        <section id="dateStep" class="step hidden">
+            <h2 class="section-title">Quelle est la date de l'événement ?</h2>
+            <div class="form-group">
+                <label for="eventDate">Date du mariage :</label>
+                <input type="date" id="eventDate" class="text-input" required>
+            </div>
+            <button id="dateNext" class="button-primary">Suivant</button>
+        </section>
 
-    <script type="module">
-        // API URL now points to your Flask backend
-        const apiUrl = '/generate'; 
-        // UI elements
-        const introTextDiv = document.getElementById('intro-section');
-        const startButton = document.getElementById('start-button');
-        const questionSection = document.getElementById('question-section');
-        const questionDisplay = document.getElementById('question-display');
-        const inputContainer = document.getElementById('input-container');
-        const prevButton = document.getElementById('prev-button');
-        const nextButton = document.getElementById('next-button');
-        const generateButton = document.getElementById('generate-button');
-        const resultSection = document.getElementById('result-section');
-        const generatedTextarea = document.getElementById('generated-text');
-        const downloadButton = document.getElementById('download-button');
-        const modifyButton = document.getElementById('modify-button');
-        const modificationSection = document.getElementById('modification-section');
-        const modificationInput = document.getElementById('modification-input');
-        const submitModificationButton = document.getElementById('submit-modification-button');
-        const cancelModificationButton = document.getElementById('cancel-modification-button');
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const messageBox = document.getElementById('messageBox');
-        const logoImage = document.getElementById('logo-image');
-        const appTitle = document.querySelector('h1');
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
-        const progressSection = document.getElementById('progress-section');
+        <section id="locationStep" class="step hidden">
+            <h2 class="section-title">Quel est le pays et la ville des célébrations ?</h2>
+            <div class="form-group">
+                <label for="eventCountry">Pays :</label>
+                <input type="text" id="eventCountry" class="text-input" placeholder="Ex: Sénégal" required>
+            </div>
+            <div class="form-group">
+                <label for="eventCity">Ville :</label>
+                <input type="text" id="eventCity" class="text-input" placeholder="Ex: Dakar" required>
+            </div>
+            <button id="locationNext" class="button-primary">Suivant</button>
+        </section>
 
+        <section id="mairieTimeStep" class="step hidden">
+            <h2 class="section-title">À quelle heure aura lieu la cérémonie civile ?</h2>
+            <div class="form-group">
+                <label for="mairieTime">Heure mairie :</label>
+                <input type="time" id="mairieTime" class="text-input">
+            </div>
+            <button id="mairieTimeNext" class="button-primary">Suivant</button>
+        </section>
 
-        // State variables
-        let currentQuestionIndex = 0;
-        let answers = {};
-        let chatHistory = []; // To maintain conversation context for Gemini API
-        let visibleQuestions = []; // To track only questions that are currently relevant to display
+        <section id="egliseTimeStep" class="step hidden">
+            <h2 class="section-title">À quelle heure aura lieu la cérémonie religieuse ?</h2>
+            <div class="form-group">
+                <label for="egliseTime">Heure église :</label>
+                <input type="time" id="egliseTime" class="text-input">
+            </div>
+            <button id="egliseTimeNext" class="button-primary">Suivant</button>
+        </section>
 
-        // Define all questions
-        const allQuestions = [
-            { id: 'brideName', text: 'QUEL EST LE PRÉNOM DE LA FUTURE MARIÉE ?', type: 'text' },
-            { id: 'groomName', text: 'QUEL EST LE PRÉNOM DU FUTUR MARIÉ ?', type: 'text' },
-            { id: 'civilDate', text: 'QUELLE EST LA DATE DU MARIAGE À LA MAIRIE ?', type: 'date' },
-            { id: 'civilTime', text: 'QUELLE EST L\'HEURE DU MARIAGE À LA MAIRIE ?', type: 'time' },
-            { id: 'churchWedding', text: 'Y AURA-T-IL UN MARIAGE À L\'ÉGLISE ?', type: 'radio', options: [{ value: 'oui', label: 'OUI' }, { value: 'non', label: 'NON' }] },
-            { id: 'churchDate', text: 'QUELLE EST LA DATE DU MARIAGE À L\'ÉGLISE ?', type: 'date', condition: (answers) => answers.churchWedding === 'oui' },
-            { id: 'churchTime', text: 'QUELLE EST L\'HEURE DU MARIAGE À L\'ÉGLISE ?', type: 'time', condition: (answers) => answers.churchWedding === 'oui' },
-            { id: 'cocktail', text: 'Y AURA-T-IL UN COCKTAIL ?', type: 'radio', options: [{ value: 'oui', label: 'OUI' }, { value: 'non', label: 'NON' }] },
-            { id: 'cocktailLocation', text: 'QUEL EST LE LIEU DU COCKTAIL ?', type: 'text', condition: (answers) => answers.cocktail === 'oui' },
-            { id: 'cocktailTime', text: 'QUELLE EST L\'HEURE DU COCKTAIL ?', type: 'time', condition: (answers) => answers.cocktail === 'oui' },
-            { id: 'reception', text: 'Y AURA-T-IL UNE RÉCEPTION ?', type: 'radio', options: [{ value: 'oui', label: 'OUI' }, { value: 'non', label: 'NON' }] },
-            { id: 'receptionLocation', text: 'QUEL EST LE LIEU DE LA RÉCEPTION ?', type: 'text', condition: (answers) => answers.reception === 'oui' },
-            { id: 'receptionTime', text: 'QUELLE EST L\'HEURE DE LA RÉCEPTION ?', type: 'time', condition: (answers) => answers.reception === 'oui' },
-            { id: 'brunch', text: 'Y AURA-T-IL UN BRUNCH LE LENDEMAIN ?', type: 'radio', options: [{ value: 'oui', label: 'OUI' }, { value: 'non', label: 'NON' }] },
-            { id: 'brunchLocation', text: 'QUEL EST LE LIEU DU BRUNCH ?', type: 'text', condition: (answers) => answers.brunch === 'oui' },
-            { id: 'brunchTime', text: 'QUELLE EST L\'HEURE DU BRUNCH ?', type: 'time', condition: (answers) => answers.brunch === 'oui' },
-            {
-                id: 'textStyle',
-                text: 'QUEL STYLE DE TEXTE SOUHAITEZ-VOUS ?',
-                type: 'select',
-                options: [
-                    { value: 'classique', label: 'CLASSIQUE' },
-                    { value: 'romantique', label: 'ROMANTIQUE' },
-                    { value: 'glamour', label: 'GLAMOUR' },
-                    { value: 'humoristique', label: 'HUMOURISTIQUE' },
-                    { value: 'original', label: 'ORIGINAL' }, /* Added new style */
-                    { value: 'elegant', label: 'ÉLÉGANT' } /* Added new style */
-                ]
-            }
-        ];
-        // Function to filter questions based on current answers
-        function getVisibleQuestions() {
-            return allQuestions.filter(q => !q.condition || q.condition(answers));
-        }
+        <section id="cocktailOptionStep" class="step hidden">
+            <h2 class="section-title">Y aura-t-il un cocktail ou un vin d'honneur ?</h2>
+            <div class="radio-group">
+                <input type="radio" id="cocktailYes" name="cocktailOption" value="yes">
+                <label for="cocktailYes">Oui</label>
+                <input type="radio" id="cocktailNo" name="cocktailOption" value="no">
+                <label for="cocktailNo">Non</label>
+            </div>
+            <button id="cocktailOptionNext" class="button-primary">Suivant</button>
+        </section>
 
-        // Function to update the progress bar
-        function updateProgressBar() {
-            visibleQuestions = getVisibleQuestions();
-            let currentVisibleIndex = 0;
-            // Find the index of the current question within the visible questions
-            for (let i = 0; i < visibleQuestions.length; i++) {
-                if (allQuestions[currentQuestionIndex] && visibleQuestions[i].id === allQuestions[currentQuestionIndex].id) {
-                    currentVisibleIndex = i;
-                    break;
-                }
-            }
+        <section id="cocktailDetailsStep" class="step hidden">
+            <h2 class="section-title">Détails du cocktail :</h2>
+            <div class="form-group">
+                <label for="cocktailLocation">Lieu du cocktail :</label>
+                <input type="text" id="cocktailLocation" class="text-input" placeholder="Ex: Jardin de l'hôtel" required>
+            </div>
+            <div class="form-group">
+                <label for="cocktailTime">Heure du cocktail :</label>
+                <input type="time" id="cocktailTime" class="text-input" required>
+            </div>
+            <button id="cocktailDetailsNext" class="button-primary">Suivant</button>
+        </section>
 
-            const totalVisibleQuestions = visibleQuestions.length;
-            let progress = 0;
-            if (totalVisibleQuestions > 0) {
-                 // Calculate progress based on the number of answered visible questions
-                progress = ((currentVisibleIndex) / totalVisibleQuestions) * 100;
-            }
+        <section id="receptionOptionStep" class="step hidden">
+            <h2 class="section-title">Y aura-t-il une réception festive ?</h2>
+            <div class="radio-group">
+                <input type="radio" id="receptionYes" name="receptionOption" value="yes">
+                <label for="receptionYes">Oui</label>
+                <input type="radio" id="receptionNo" name="receptionOption" value="no">
+                <label for="receptionNo">Non</label>
+            </div>
+            <button id="receptionOptionNext" class="button-primary">Suivant</button>
+        </section>
 
-            progressBar.style.width = `${progress}%`;
-            progressText.textContent = `${Math.round(progress)}%`;
-            // If we are on the last question, or if all questions are answered, show 100%
-            if (currentVisibleIndex >= totalVisibleQuestions - 1 && totalVisibleQuestions > 0 && generateButton.style.display === 'block') {
-                progressBar.style.width = '100%';
-                progressText.textContent = '100%';
-            } else if (currentVisibleIndex === 0 && totalVisibleQuestions > 0 && nextButton.style.display === 'block') {
-                 // Show 0% at the start of the first question
-                progressBar.style.width = '0%';
-                progressText.textContent = '0%';
-            } else if (totalVisibleQuestions > 0) {
-                 // Adjust for the current question being 'in progress'
-                progress = ((currentVisibleIndex + 1) / totalVisibleQuestions) * 100;
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${Math.round(progress)}%`;
-            }
-        }
+        <section id="receptionDetailsStep" class="step hidden">
+            <h2 class="section-title">Détails de la réception :</h2>
+            <div class="form-group">
+                <label for="receptionLocation">Lieu de la réception :</label>
+                <input type="text" id="receptionLocation" class="text-input" placeholder="Ex: Salle des fêtes 'Le Palmier'" required>
+            </div>
+            <div class="form-group">
+                <label for="receptionTime">Heure de la réception :</label>
+                <input type="time" id="receptionTime" class="text-input" required>
+            </div>
+            <button id="receptionDetailsNext" class="button-primary">Suivant</button>
+        </section>
 
+        <section id="styleStep" class="step hidden">
+            <h2 class="section-title">Quel style souhaitez-vous pour le texte de votre faire-part ?</h2>
+            <div class="style-options">
+                <button type="button" class="style-button" data-style="traditionnel">Traditionnel et solennel</button>
+                <button type="button" class="style-button" data-style="romantique">Romantique et poétique</button>
+                <button type="button" class="style-button" data-style="moderne">Moderne et épuré</button>
+                <button type="button" class="style-button" data-style="festif">Joyeux et festif</button>
+                <button type="button" class="style-button" data-style="intime">Intime et chaleureux</button>
+                <button type="button" class="style-button" data-style="glamour">Glamour et sophistiqué</button>
+                <button type="button" class="style-button" data-style="africain_chic">Africain chic et élégant</button>
+                <button type="button" class="style-button" data-style="theme_particulier">Un thème particulier</button>
+            </div>
+            <div class="form-group hidden" id="specificThemeInput">
+                <label for="specificTheme">Précisez votre thème :</label>
+                <input type="text" id="specificTheme" class="text-input" placeholder="Ex: Voyage, Nature, Années Folles...">
+            </div>
+            <button id="styleNext" class="button-primary">Suivant</button>
+        </section>
 
-        // Function to display messages in the message box
-        function showMessage(message, type = 'info') {
-            messageBox.textContent = message;
-            messageBox.style.display = 'block';
-            messageBox.className = `message-box mt-4`; // Reset classes before applying
-            // Apply custom colors based on type
-            if (type === 'info') {
-                messageBox.style.backgroundColor = '#F6E3DF';
-                messageBox.style.color = '#9B432B';
-                messageBox.style.borderColor = '#9B432B';
-            } else if (type === 'success') {
-                messageBox.style.backgroundColor = '#d4edda'; /* Greenish for success */
-                messageBox.style.color = '#155724';
-                messageBox.style.borderColor = '#28a745';
-            } else if (type === 'error') {
-                messageBox.style.backgroundColor = '#f8d7da'; /* Reddish for error */
-                messageBox.style.color = '#721c24';
-                messageBox.style.borderColor = '#dc3545';
-            }
-            // Hide after 5 seconds
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 5000);
-        }
+        <section id="additionalInfoStep" class="step hidden">
+            <h2 class="section-title">Y a-t-il d'autres informations importantes à inclure ou des précisions ?</h2>
+            <p>Ex: un code vestimentaire, une liste de mariage, une phrase fétiche, etc.</p>
+            <div class="form-group">
+                <textarea id="additionalInfo" class="text-input" rows="4" placeholder="Ex: Tenue traditionnelle africaine appréciée."></textarea>
+            </div>
+            <button id="additionalInfoNext" class="button-primary">GÉNÉRER LE TEXTE DE MON FAIRE-PART</button>
+        </section>
 
-        // Function to render the current question
-        function renderQuestion() {
-            visibleQuestions = getVisibleQuestions();
-            // Find the actual index in allQuestions array for the current visible question
-            let currentQuestionInVisibleList = -1;
-            if (currentQuestionIndex < allQuestions.length) { // Ensure currentQuestionIndex is valid for allQuestions
-                currentQuestionInVisibleList = visibleQuestions.findIndex(q => q.id === allQuestions[currentQuestionIndex].id);
-            }
+        <section id="resultStep" class="step hidden">
+            <h2 class="section-title">Votre texte généré :</h2>
+            <div class="generated-output-box">
+                <div id="loadingIndicator" class="loading-indicator hidden">Chargement...</div>
+                <p id="generatedText" class="generated-text"></p>
+            </div>
+            <button id="downloadTextButton" class="button-secondary" style="margin-top: 20px;">Télécharger le texte (TXT)</button>
 
+            <div class="feedback-section">
+                <h3>Le texte vous convient-il ?</h3>
+                <p>Si ce n'est pas le cas, vous pouvez me demander soit d'améliorer, soit de changer de style, soit me dire ce que je dois modifier.</p>
+                <textarea id="feedbackInput" class="text-input" rows="3" placeholder="Ex: Peux-tu le rendre plus formel ? / Raccourcir le paragraphe sur le cocktail."></textarea>
+                <button id="sendFeedbackButton" class="button-primary">Envoyer la demande de modification</button>
+            </div>
+            <button id="restartButton" class="button-secondary">Recommencer</button>
+        </section>
 
-            // If currentQuestionIndex points to a non-visible question, advance it
-            while (currentQuestionInVisibleList === -1 && currentQuestionIndex < allQuestions.length) {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < allQuestions.length) {
-                    currentQuestionInVisibleList = visibleQuestions.findIndex(q => q.id === allQuestions[currentQuestionIndex].id);
-                }
-            }
+        <section id="secretQuestionResponse" class="step hidden">
+            <h2 class="section-title">Mon fonctionnement :</h2>
+            <p>Je suis un programme informatique développé par Google. Je n'ai pas de "code" au sens humain du terme, ni de créateur individuel. Je fonctionne grâce à des algorithmes et des réseaux neuronaux pour traiter le langage naturel et générer du texte en fonction des instructions que je reçois.</p>
+            <button id="backFromSecretButton" class="button-secondary">Retour au faire-part</button>
+        </section>
+    </main>
 
-
-            // If we've skipped past all visible questions, show generate button
-            if (currentQuestionInVisibleList === -1 || currentQuestionIndex >= allQuestions.length) {
-                showGenerateButton();
-                updateProgressBar(); // Update progress bar one last time
-                return;
-            }
-
-            const question = allQuestions[currentQuestionIndex];
-            questionDisplay.textContent = question.text;
-            inputContainer.innerHTML = ''; // Clear previous input
-
-            let inputElement;
-            if (question.type === 'text' || question.type === 'date' || question.type === 'time') {
-                inputElement = document.createElement('input');
-                inputElement.type = question.type;
-                inputElement.id = question.id;
-                inputElement.className = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-custom-color';
-                inputElement.value = answers[question.id] || ''; // Pre-fill if answer exists
-            } else if (question.type === 'radio') {
-                const radioGroupDiv = document.createElement('div');
-                radioGroupDiv.className = 'flex-center flex-wrap gap-4'; // Added flex-center here for radio options
-                question.options.forEach(option => {
-                    const label = document.createElement('label');
-                    label.className = 'inline-flex items-center text-custom-color'; // Removed mr-4, gap-4 on parent will handle spacing
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = question.id; // Group radios by name
-                    radio.value = option.value;
-                    radio.className = 'form-radio h-5 w-5 text-[#9B432B]'; /* Changed radio button color */
-                    if (answers[question.id] === option.value) {
-                        radio.checked = true;
-                    }
-                    label.appendChild(radio);
-                    label.appendChild(document.createTextNode(` ${option.label}`));
-                    radioGroupDiv.appendChild(label);
-                });
-                inputContainer.appendChild(radioGroupDiv);
-            } else if (question.type === 'select') {
-                inputElement = document.createElement('select');
-                inputElement.id = question.id;
-                inputElement.className = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-custom-color';
-                question.options.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.textContent = option.label;
-                    inputElement.appendChild(optionElement);
-                });
-                if (answers[question.id]) {
-                    inputElement.value = answers[question.id];
-                }
-            } else if (question.type === 'textarea') { // Added textarea type
-                inputElement = document.createElement('textarea');
-                inputElement.id = question.id;
-                inputElement.className = 'w-full h-32 border rounded-lg p-4 resize-y text-custom-color';
-                inputElement.value = answers[question.id] || '';
-                inputElement.placeholder = 'Entrez vos informations complémentaires ici...';
-            }
-
-            if (inputElement) {
-                inputContainer.appendChild(inputElement);
-            }
-
-            // Show/hide navigation buttons
-            prevButton.style.display = currentQuestionInVisibleList > 0 ? 'block' : 'none';
-            nextButton.style.display = currentQuestionInVisibleList < visibleQuestions.length - 1 ? 'block' : 'none';
-            generateButton.style.display = 'none';
-            // Special handling for the last question (additional info)
-            if (currentQuestionInVisibleList === visibleQuestions.length - 1) {
-                nextButton.style.display = 'none';
-                generateButton.style.display = 'block';
-            }
-            updateProgressBar();
-        }
-
-        // Function to handle moving to the next question
-        function goToNextQuestion() {
-            const question = allQuestions[currentQuestionIndex];
-            let value;
-            if (question.type === 'text' || question.type === 'date' || question.type === 'time' || question.type === 'select' || question.type === 'textarea') {
-                const input = document.getElementById(question.id);
-                value = input ? input.value.trim() : '';
-            } else if (question.type === 'radio') {
-                const checkedRadio = document.querySelector(`input[name="${question.id}"]:checked`);
-                value = checkedRadio ? checkedRadio.value : '';
-            }
-
-            // Basic validation for mandatory fields (text, date, time, select, radio)
-            // Textarea (additionalInfo) is optional, so no strict validation for it.
-            if ((question.type === 'text' || question.type === 'date' || question.type === 'time') && !value) {
-                showMessage('VEUILLEZ RÉPONDRE À LA QUESTION ACTUELLE.', 'error');
-                return;
-            }
-            if (question.type === 'radio' && !value) {
-                showMessage('VEUILLEZ SÉLECTIONNER UNE OPTION.', 'error');
-                return;
-            }
-            if (question.type === 'select' && !value) {
-                showMessage('VEUILLEZ SÉLECTIONNER UN STYLE.', 'error');
-                return;
-            }
-
-            answers[question.id] = value;
-            currentQuestionIndex++;
-            // Move to the next question in the ALL questions array
-            renderQuestion(); // This will handle skipping if needed
-        }
-
-        // Function to handle moving to the previous question
-        function goToPrevQuestion() {
-            currentQuestionIndex--;
-            // Go back until we find a question that is visible
-            while (currentQuestionIndex >= 0) {
-                const question = allQuestions[currentQuestionIndex];
-                if (!question.condition || question.condition(answers)) {
-                    break; // Found a visible question
-                }
-                currentQuestionIndex--;
-            }
-            if (currentQuestionIndex < 0) currentQuestionIndex = 0; // Don't go below 0
-            renderQuestion();
-        }
-
-        // Show generate button and hide navigation buttons
-        function showGenerateButton() {
-            questionDisplay.textContent = 'VOUS AVEZ RÉPONDU À TOUTES LES QUESTIONS !';
-            inputContainer.innerHTML = '';
-            nextButton.style.display = 'none';
-            prevButton.style.display = 'none';
-            generateButton.style.display = 'block';
-            updateProgressBar(); // Ensure 100% is shown at the end
-        }
-
-        // Function to send the request to the Flask backend
-        async function generateAnnouncement(feedback = '') {
-            loadingOverlay.classList.remove('hidden');
-            messageBox.style.display = 'none'; // Hide any previous messages
-
-            const payload = {
-                brideName: answers.brideName,
-                groomName: answers.groomName,
-                eventDate: answers.civilDate, // Utilisez civilDate comme date principale
-                eventCity: answers.civilCity || '', // Ajoutez civilCity ici, assurez-vous qu'il est capturé
-                mairieTime: answers.civilTime,
-                churchWedding: answers.churchWedding,
-                churchDate: answers.churchDate || '',
-                churchTime: answers.churchTime || '',
-                cocktailIncluded: answers.cocktail === 'oui',
-                cocktailLocation: answers.cocktail === 'oui' ? answers.cocktailLocation : '',
-                cocktailTime: answers.cocktail === 'oui' ? answers.cocktailTime : '',
-                receptionIncluded: answers.reception === 'oui',
-                receptionLocation: answers.reception === 'oui' ? answers.receptionLocation : '',
-                receptionTime: answers.reception === 'oui' ? answers.receptionTime : '',
-                brunchIncluded: answers.brunch === 'oui',
-                brunchLocation: answers.brunch === 'oui' ? answers.brunchLocation : '',
-                brunchTime: answers.brunch === 'oui' ? answers.brunchTime : '',
-                style: answers.textStyle,
-                specificTheme: answers.specificTheme || '', // Ajouté pour un thème spécifique si vous l'avez dans les questions
-                additionalInfo: answers.additionalInfo || '',
-                feedback: feedback, // Pass feedback if present
-                previousText: generatedTextarea.value // Pass previous text for modifications
-            };
-
-            // Ensure eventCity is correctly captured or handled (consider adding a question for it if not already present)
-            if (!payload.eventCity) {
-                console.warn("eventCity est vide. Assurez-vous qu'il est capturé dans vos questions.");
-            }
-
-            try {
-                console.log("Sending payload to Flask backend:", payload); // Debugging line
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || `Erreur HTTP: ${response.status}`);
-                }
-
-                const data = await response.json();
-                generatedTextarea.value = data.text;
-                resultSection.classList.remove('hidden');
-                questionSection.classList.add('hidden');
-                progressSection.classList.add('hidden'); // Hide progress bar on result display
-                showMessage('TEXTE GÉNÉRÉ AVEC SUCCÈS !', 'success');
-                // Hide modification section after new generation
-                modificationSection.classList.add('hidden');
-                modificationInput.value = '';
-
-            } catch (error) {
-                console.error('Erreur lors de la génération du texte:', error);
-                showMessage(`ERREUR: ${error.message}`, 'error');
-                generatedTextarea.value = 'Désolé, une erreur est survenue lors de la génération du texte. Veuillez réessayer ou vérifier la console pour plus de détails.';
-            } finally {
-                loadingOverlay.classList.add('hidden');
-            }
-        }
-
-        // Function to download the generated text
-        function downloadText() {
-            const textToDownload = generatedTextarea.value;
-            const filename = "mon_texte_mariage.txt";
-            const element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textToDownload));
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
-
-        // Event Listeners
-        startButton.addEventListener('click', () => {
-            introTextDiv.classList.add('hidden');
-            questionSection.classList.remove('hidden');
-            progressSection.classList.remove('hidden');
-            currentQuestionIndex = 0;
-            answers = {}; // Reset answers when starting over
-            renderQuestion();
-        });
-
-        nextButton.addEventListener('click', goToNextQuestion);
-        prevButton.addEventListener('click', goToPrevQuestion);
-        generateButton.addEventListener('click', () => generateAnnouncement());
-        downloadButton.addEventListener('click', downloadText);
-
-        modifyButton.addEventListener('click', () => {
-            modificationSection.classList.remove('hidden');
-        });
-
-        submitModificationButton.addEventListener('click', () => {
-            const modifications = modificationInput.value.trim();
-            if (modifications) {
-                generateAnnouncement(modifications);
-            } else {
-                showMessage('VEUILLEZ ENTRER DES MODIFICATIONS OU ANNULER.', 'error');
-            }
-        });
-
-        cancelModificationButton.addEventListener('click', () => {
-            modificationSection.classList.add('hidden');
-            modificationInput.value = ''; // Clear input on cancel
-        });
-
-        // Initialize the app on load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initially, only show the intro section
-            questionSection.classList.add('hidden');
-            progressSection.classList.add('hidden');
-            resultSection.classList.add('hidden');
-            modificationSection.classList.add('hidden');
-            introTextDiv.classList.remove('hidden'); // Ensure intro is visible initially
-            
-        });
-
-    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
