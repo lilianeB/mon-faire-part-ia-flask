@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MON TEXTE DE MARIAGE CHIC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='LOGO HD.png') }}" alt="Logo Mon Faire-Part Africain Chic" class="header-logo">
+        <h1>MON TEXTE DE MARIAGE CHIC</h1>
+    </header>
+
+    <main class="container">
+        <div id="progressBarContainer" class="progress-bar-container hidden">
+            <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+
+        <section id="introStep" class="step">
+            <h2 class="section-title">Bienvenue sur votre générateur de texte!</h2>
+            <p>Afin de bien préparer le texte de votre faire-part, j'ai d'abord besoin d'avoir quelques informations. Commençons !</p>
+            <button id="startButton" class="button-primary">COMMENCER</button>
+        </section>
+
+        <section id="namesStep" class="step hidden">
+            <h2 class="section-title">Quels sont les prénoms des futurs mariés?</h2>
+            <div class="form-group">
+                <label for="brideName">Prénom de la mariée :</label>
+                <input type="text" id="brideName" class="text-input" placeholder="Ex: Aissatou" required>
+            </div>
+            <div class="form-group">
+                <label for="groomName">Prénom du marié :</label>
+                <input type="text" id="groomName" class="text-input" placeholder="Ex: Moussa" required>
+            </div>
+            <button id="namesNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="familyNamesOptionStep" class="step hidden">
+            <h2 class="section-title">Souhaitez-vous inclure les noms des familles?</h2>
+            <div class="radio-group">
+                <input type="radio" id="familyNamesYes" name="familyNamesOption" value="yes">
+                <label for="familyNamesYes">Oui</label>
+                <input type="radio" id="familyNamesNo" name="familyNamesOption" value="no">
+                <label for="familyNamesNo">Non</label>
+            </div>
+            <button id="familyNamesOptionNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="brideFamilyStep" class="step hidden">
+            <h2 class="section-title">Noms des familles de la mariée :</h2>
+            <p>Veuillez lister les noms des familles (Ex: Traoré, Diallo, Konaté)</p>
+            <div class="form-group">
+                <input type="text" id="brideFamilyNames" class="text-input" placeholder="Ex: Les grandes familles Traoré, Diallo">
+            </div>
+            <button id="brideFamilyNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="groomFamilyStep" class="step hidden">
+            <h2 class="section-title">Noms des familles du marié :</h2>
+            <p>Veuillez lister les noms des familles (Ex: Coulibaly, Diarra, Keita)</p>
+            <div class="form-group">
+                <input type="text" id="groomFamilyNames" class="text-input" placeholder="Ex: Les grandes familles Coulibaly, Diarra">
+            </div>
+            <button id="groomFamilyNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="dateStep" class="step hidden">
+            <h2 class="section-title">Quelle est la date de l'événement ?</h2>
+            <div class="form-group">
+                <label for="eventDate">Date du mariage :</label>
+                <input type="date" id="eventDate" class="text-input" required>
+            </div>
+            <button id="dateNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="locationStep" class="step hidden">
+            <h2 class="section-title">Quel est le pays et la ville des célébrations ?</h2>
+            <div class="form-group">
+                <label for="eventCountry">Pays :</label>
+                <input type="text" id="eventCountry" class="text-input" placeholder="Ex: Sénégal" required>
+            </div>
+            <div class="form-group">
+                <label for="eventCity">Ville :</label>
+                <input type="text" id="eventCity" class="text-input" placeholder="Ex: Dakar" required>
+            </div>
+            <button id="locationNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="mairieTimeStep" class="step hidden">
+            <h2 class="section-title">À quelle heure aura lieu la cérémonie civile ?</h2>
+            <div class="form-group">
+                <label for="mairieTime">Heure mairie :</label>
+                <input type="time" id="mairieTime" class="text-input">
+            </div>
+            <button id="mairieTimeNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="egliseTimeStep" class="step hidden">
+            <h2 class="section-title">À quelle heure aura lieu la cérémonie religieuse ?</h2>
+            <div class="form-group">
+                <label for="egliseTime">Heure église :</label>
+                <input type="time" id="egliseTime" class="text-input">
+            </div>
+            <button id="egliseTimeNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="cocktailOptionStep" class="step hidden">
+            <h2 class="section-title">Y aura-t-il un cocktail ou un vin d'honneur ?</h2>
+            <div class="radio-group">
+                <input type="radio" id="cocktailYes" name="cocktailOption" value="yes">
+                <label for="cocktailYes">Oui</label>
+                <input type="radio" id="cocktailNo" name="cocktailOption" value="no">
+                <label for="cocktailNo">Non</label>
+            </div>
+            <button id="cocktailOptionNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="cocktailDetailsStep" class="step hidden">
+            <h2 class="section-title">Détails du cocktail :</h2>
+            <div class="form-group">
+                <label for="cocktailLocation">Lieu du cocktail :</label>
+                <input type="text" id="cocktailLocation" class="text-input" placeholder="Ex: Jardin de l'hôtel" required>
+            </div>
+            <div class="form-group">
+                <label for="cocktailTime">Heure du cocktail :</label>
+                <input type="time" id="cocktailTime" class="text-input" required>
+            </div>
+            <button id="cocktailDetailsNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="receptionOptionStep" class="step hidden">
+            <h2 class="section-title">Y aura-t-il une réception festive ?</h2>
+            <div class="radio-group">
+                <input type="radio" id="receptionYes" name="receptionOption" value="yes">
+                <label for="receptionYes">Oui</label>
+                <input type="radio" id="receptionNo" name="receptionOption" value="no">
+                <label for="receptionNo">Non</label>
+            </div>
+            <button id="receptionOptionNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="receptionDetailsStep" class="step hidden">
+            <h2 class="section-title">Détails de la réception :</h2>
+            <div class="form-group">
+                <label for="receptionLocation">Lieu de la réception :</label>
+                <input type="text" id="receptionLocation" class="text-input" placeholder="Ex: Salle des fêtes 'Le Palmier'" required>
+            </div>
+            <div class="form-group">
+                <label for="receptionTime">Heure de la réception :</label>
+                <input type="time" id="receptionTime" class="text-input" required>
+            </div>
+            <button id="receptionDetailsNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="styleStep" class="step hidden">
+            <h2 class="section-title">Quel style souhaitez-vous pour le texte de votre faire-part ?</h2>
+            <div class="style-options">
+                <button type="button" class="style-button" data-style="traditionnel">Traditionnel et solennel</button>
+                <button type="button" class="style-button" data-style="romantique">Romantique et poétique</button>
+                <button type="button" class="style-button" data-style="moderne">Moderne et épuré</button>
+                <button type="button" class="style-button" data-style="festif">Joyeux et festif</button>
+                <button type="button" class="style-button" data-style="intime">Intime et chaleureux</button>
+                <button type="button" class="style-button" data-style="glamour">Glamour et sophistiqué</button>
+                <button type="button" class="style-button" data-style="africain_chic">Africain chic et élégant</button>
+                <button type="button" class="style-button" data-style="theme_particulier">Un thème particulier</button>
+            </div>
+            <div class="form-group hidden" id="specificThemeInput">
+                <label for="specificTheme">Précisez votre thème :</label>
+                <input type="text" id="specificTheme" class="text-input" placeholder="Ex: Voyage, Nature, Années Folles...">
+            </div>
+            <button id="styleNext" class="button-primary">Suivant</button>
+        </section>
+
+        <section id="additionalInfoStep" class="step hidden">
+            <h2 class="section-title">Y a-t-il d'autres informations importantes à inclure ou des précisions ?</h2>
+            <p>Ex: un code vestimentaire, une liste de mariage, une phrase fétiche, etc.</p>
+            <div class="form-group">
+                <textarea id="additionalInfo" class="text-input" rows="4" placeholder="Ex: Tenue traditionnelle africaine appréciée."></textarea>
+            </div>
+            <button id="additionalInfoNext" class="button-primary">GÉNÉRER LE TEXTE DE MON FAIRE-PART</button>
+        </section>
+
+        <section id="resultStep" class="step hidden">
+            <h2 class="section-title">Votre texte généré :</h2>
+            <div class="generated-output-box">
+                <div id="loadingIndicator" class="loading-indicator hidden">Chargement...</div>
+                <p id="generatedText" class="generated-text"></p>
+            </div>
+            <button id="downloadTextButton" class="button-secondary" style="margin-top: 20px;">Télécharger le texte (TXT)</button>
+
+            <div class="feedback-section">
+                <h3>Le texte vous convient-il ?</h3>
+                <p>Si ce n'est pas le cas, vous pouvez me demander soit d'améliorer, soit de changer de style, soit me dire ce que je dois modifier.</p>
+                <textarea id="feedbackInput" class="text-input" rows="3" placeholder="Ex: Peux-tu le rendre plus formel ? / Raccourcir le paragraphe sur le cocktail."></textarea>
+                <button id="sendFeedbackButton" class="button-primary">Envoyer la demande de modification</button>
+            </div>
+            <button id="restartButton" class="button-secondary">Recommencer</button>
+        </section>
+
+        <section id="secretQuestionResponse" class="step hidden">
+            <h2 class="section-title">Mon fonctionnement :</h2>
+            <p>Je suis un programme informatique développé par Google. Je n'ai pas de "code" au sens humain du terme, ni de créateur individuel. Je fonctionne grâce à des algorithmes et des réseaux neuronaux pour traiter le langage naturel et générer du texte en fonction des instructions que je reçois.</p>
+            <button id="backFromSecretButton" class="button-secondary">Retour au faire-part</button>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
